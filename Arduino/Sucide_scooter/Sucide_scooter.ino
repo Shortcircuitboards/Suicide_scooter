@@ -82,7 +82,8 @@ int pos = 0;          // variable to store the servo position
 
 void setup() {
 Serial.begin(9600);
-
+  myservo1.attach(5);  // attaches the servo1 on pin 3 to the servo1 object
+  myservo2.attach(3);  // attaches the servo2 on pin 5 to the servo1 object
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
@@ -92,18 +93,20 @@ Serial.begin(9600);
   // Show initial display buffer contents on the screen --
   // the library initializes this with an Adafruit splash screen.
   display.display();
-  delay(800); // Pause for 0,8 seconds
+  myservo1.write(20);       //Set the Servo output to 20° to prevent the ESC from going to IDLE and lock
+  delay(100); // Pause for 0,8 seconds
   display.clearDisplay();
   // Clear the buffer
-  delay(500); // Pause for 0.5 seconds
+  myservo1.write(20);       //Set the Servo output to 20° to prevent the ESC from going to IDLE and lock
+  delay(2000); // Pause for 0.5 seconds
   display.drawBitmap(32, 0, logo_bmp, 64, 64, 1); //show the Moe Bootscreen
   display.display();
-  delay(4000); // Pause for 4 seconds
+  myservo1.write(20);       //Set the Servo output to 20° to prevent the ESC from going to IDLE and lock
+  delay(1000); // Pause for 4 seconds
   display.clearDisplay();
+   myservo1.write(20);      //Set the Servo output to 20° to prevent the ESC from going to IDLE and lock
+
   
-  myservo1.attach(3);  // attaches the servo1 on pin 3 to the servo1 object
-  myservo2.attach(5);  // attaches the servo2 on pin 5 to the servo1 object
-  Serial.begin(9600);  // generates serial connection
 
 pinMode(blight, OUTPUT);
 pinMode(nightlight, OUTPUT); 
@@ -116,7 +119,7 @@ void loop() {
   int curr_t = analogRead(isens);           //Read the Value of the Analog Input of Bat 2 and write it to the temp Variable
   
   float vol = vol_t * (40 / 1023.0);    //Scale the Input to the displayed (Real) Value 36V on the Voltage divider are 3,3V on the Arduino
-  float curr = curr_t * (148 / 1023.0);    //Scale the Input to the displayed (Real) Value 36V on the Voltage divider are 3,3V on the Arduino
+  float curr = curr_t * (25 / 1023.0);    //Scale the Input to the displayed (Real) Value 36V on the Voltage divider are 3,3V on the Arduino
  
 
   
@@ -159,9 +162,9 @@ void loop() {
   delay(15);
 
 
-  if (press == 1) {                   // if push buton pressed automatic mode starts
-    myservo1.write(0);                // tell servo1 to go to Zero (brake if switch is enabled
-    myservo2.write(0); 
+  if (press == 0) {                   // if push buton pressed automatic mode starts
+    myservo1.write(20);                // tell servo1 to go to Zero (brake if switch is enabled
+    myservo2.write(20); 
     throttle = 0; 
     digitalWrite(blight, HIGH);       // switch on the breaklight            
     delay(15);                        // waits 15ms for the servo to reach the position
@@ -169,9 +172,9 @@ void loop() {
   
   else {
   val = analogRead(potpin);            // reads the value of the potentiometer (value between 0 and 1023)
-  val = map(val, 0, 1023, 0, 300);     // scale it to use it with the servo (value between 0 and 180)
-  val = constrain(val, 0 , 180);       // kinda expo so that the throttle flickering at fullspeed stops
-  throttle = map(val, 0, 180, 0, 100);     // generate throttle Value 0 to 100% for the oled
+  val = map(val, 195, 1023, 20, 300);     // scale it to use it with the servo (value between 20 and 160 becaus ESC can´t read values lower than 20 and higher than 160)
+  val = constrain(val, 0 , 160);       // kinda expo so that the throttle flickering at fullspeed stops
+  throttle = map(val, 20, 160, 0, 100);     // generate throttle Value 0 to 100% for the oled
   myservo1.write(val);                 // sets the servo1 position according to the scaled value
   myservo2.write(val);                 // sets the servo2 position according to the scaled value
   digitalWrite(blight, LOW);           // switch the breaklight off

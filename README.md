@@ -8,6 +8,8 @@ parts... So i build it anyway :-)
 
 For more Informations see the Wiki https://github.com/Shortcircuitboards/Suicide_scooter/wiki
 
+Added the slow mode wich can be entered by just switching on. For unlocked speed, just push the break while switching on.
+
 Actually done:
 - Light switch
 - Brakelight
@@ -15,12 +17,12 @@ Actually done:
 - Oled display with throttle
 - smoothen out the max throttle to save the ESC from exploding
 - gott the hardware ready to test out everything in real :-D (minor bugfixes comming soon)
+- different speed modes while switching on (pull break, while switching on, for unlimited speed, all normal for limited [legal...] speed
 
 Partitially done:
 - configuration script
 
 To be done:
-- different speed modes while switching on (pull break, while switching on, for unlimited speed, all normal for limited [legal...] speed
 - change color for the underfloor LED stirp with button combination
 
 If you already want to play around with the Code virtually, you can do it here: https://wokwi.com/projects/341405340246475347

@@ -2,8 +2,9 @@
 Brushless mod for the Razor kiddy Scooter. It´s kinda dumb, because it´s way too fast for the little breaks and the stupid mecanic. But i got it cheap and also the other
 parts... So i build it anyway :-)
 
-<img src="/images/Scooter_done_side.jpg" alt="Sidefiew" title="finished project">
+<img src="/images/Scooter_done_side.jpg" alt="Sideview" title="finished project">
 
+<img src="/images/Controller + Display.jpg" alt="Controller" title="finished controller">
 
 For more Informations see the Wiki https://github.com/Shortcircuitboards/Suicide_scooter/wiki
 
